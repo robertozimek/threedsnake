@@ -114,5 +114,45 @@ void setup() {
 }
 
 void loop() {
+  
+}
 
+
+/*
+ * Button Press Functions
+ */
+void startGameIfNotStarted() {
+  if(!gameStarted) {
+    gameStarted = true;
+  }
+}
+
+void upPressed() {
+  startGameIfNotStarted());
+  snake[0][2] = 2;
+}
+
+void rightPressed() {
+  startGameIfNotStarted());
+  snake[0][2] = 5;
+}
+
+void downPressed() {
+  startGameIfNotStarted());
+  snake[0][2] = 4;
+}
+
+void leftPressed() {
+  startGameIfNotStarted());
+  snake[0][2] = 3;
+}
+
+void forwardPressed() {
+  startGameIfNotStarted());
+  snake[0][2] = 0;
+}
+
+void backPressed() {
+  startGameIfNotStarted());
+  snake[0][2] = 1;
 }
