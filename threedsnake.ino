@@ -156,3 +156,198 @@ void backPressed() {
   startGameIfNotStarted());
   snake[0][2] = 1;
 }
+
+// Print score of game
+void gameOver(int score = 0) {
+  for(int i = 0; i < 3; i++) {
+    digitalWrite(layerPins[i], LOW);
+  }
+  digitalWrite(layerPins[3], HIGH);
+  
+  switch(score) {
+    case 1:
+      ShiftPWM.SetOne(46,maxBrightness);
+      for(int i = 40; i >= 32; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(24,maxBrightness);
+      break;
+    case 2:
+      ShiftPWM.SetOne(47,maxBrightness);
+      ShiftPWM.SetOne(39,maxBrightness);
+      ShiftPWM.SetOne(31,maxBrightness);
+      for(int i = 23; i >= 20; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(28,maxBrightness);
+      ShiftPWM.SetOne(36,maxBrightness);
+      for(int i = 44; i >= 40; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(32,maxBrightness);
+      ShiftPWM.SetOne(24,maxBrightness);
+      ShiftPWM.SetOne(16,maxBrightness);
+      break;
+    case 3:
+      ShiftPWM.SetOne(47,maxBrightness);
+      ShiftPWM.SetOne(39,maxBrightness);
+      ShiftPWM.SetOne(31,maxBrightness);
+      for(int i = 23; i >= 16; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(28,maxBrightness);
+      ShiftPWM.SetOne(36,maxBrightness);
+      ShiftPWM.SetOne(44,maxBrightness);
+      ShiftPWM.SetOne(40,maxBrightness);
+      ShiftPWM.SetOne(32,maxBrightness);
+      ShiftPWM.SetOne(24,maxBrightness);
+      break;
+    case 4:
+      for(int i = 55; i >= 52; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(44,maxBrightness);
+      ShiftPWM.SetOne(36,maxBrightness);
+      ShiftPWM.SetOne(28,maxBrightness);
+      ShiftPWM.SetOne(20,maxBrightness);
+       for(int i = 15; i >= 8; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      break;
+    case 5:
+      ShiftPWM.SetOne(15,maxBrightness);
+      ShiftPWM.SetOne(23,maxBrightness);
+      ShiftPWM.SetOne(31,maxBrightness);
+      ShiftPWM.SetOne(39,maxBrightness);
+      ShiftPWM.SetOne(47,maxBrightness);
+      for(int i = 55; i >= 52; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(44,maxBrightness);
+      ShiftPWM.SetOne(36,maxBrightness);
+      ShiftPWM.SetOne(28,maxBrightness);
+      ShiftPWM.SetOne(20,maxBrightness);
+      for(int i = 12; i >= 8; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(16,maxBrightness);
+      ShiftPWM.SetOne(24,maxBrightness);
+      ShiftPWM.SetOne(32,maxBrightness);
+      ShiftPWM.SetOne(40,maxBrightness);
+      ShiftPWM.SetOne(48,maxBrightness);
+      break;
+    case 6:
+      ShiftPWM.SetOne(47,maxBrightness);
+      ShiftPWM.SetOne(39,maxBrightness);
+      ShiftPWM.SetOne(31,maxBrightness);
+      ShiftPWM.SetOne(23,maxBrightness);
+      ShiftPWM.SetOne(15,maxBrightness);
+      for(int i = 55; i >= 48; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(44,maxBrightness);
+      ShiftPWM.SetOne(36,maxBrightness);
+      ShiftPWM.SetOne(28,maxBrightness);
+      ShiftPWM.SetOne(20,maxBrightness);
+      for(int i = 12; i >= 8; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(16,maxBrightness);
+      ShiftPWM.SetOne(24,maxBrightness);
+      ShiftPWM.SetOne(32,maxBrightness);
+      ShiftPWM.SetOne(40,maxBrightness);
+      break;
+    case 7:
+      ShiftPWM.SetOne(55,maxBrightness);
+      ShiftPWM.SetOne(47,maxBrightness);
+      ShiftPWM.SetOne(39,maxBrightness);
+      ShiftPWM.SetOne(31,maxBrightness);
+      ShiftPWM.SetOne(23,maxBrightness);
+      for(int i = 15; i >= 8; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      break;
+    case 8:
+      for(int i = 55; i >= 48; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(47,maxBrightness);
+      ShiftPWM.SetOne(39,maxBrightness);
+      ShiftPWM.SetOne(31,maxBrightness);
+      ShiftPWM.SetOne(23,maxBrightness);
+      ShiftPWM.SetOne(44,maxBrightness);
+      ShiftPWM.SetOne(36,maxBrightness);
+      ShiftPWM.SetOne(28,maxBrightness);
+      ShiftPWM.SetOne(20,maxBrightness);
+      for(int i = 15; i >= 8; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(40,maxBrightness);
+      ShiftPWM.SetOne(32,maxBrightness);
+      ShiftPWM.SetOne(24,maxBrightness);
+      ShiftPWM.SetOne(16,maxBrightness);
+      break;
+    case 9:
+      for(int i = 55; i >= 52; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(47,maxBrightness);
+      ShiftPWM.SetOne(39,maxBrightness);
+      ShiftPWM.SetOne(31,maxBrightness);
+      ShiftPWM.SetOne(23,maxBrightness);
+      ShiftPWM.SetOne(44,maxBrightness);
+      ShiftPWM.SetOne(36,maxBrightness);
+      ShiftPWM.SetOne(28,maxBrightness);
+      ShiftPWM.SetOne(20,maxBrightness);
+      for(int i = 15; i >= 8; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      break;
+    case 10:
+      for(int i = 63; i >= 56; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      for(int i = 47; i >= 40; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+
+      ShiftPWM.SetOne(39,maxBrightness);
+      ShiftPWM.SetOne(31,maxBrightness);
+      ShiftPWM.SetOne(23,maxBrightness);
+      ShiftPWM.SetOne(15,maxBrightness);
+      for(int i = 7; i >= 0; i--) {
+         ShiftPWM.SetOne(i,maxBrightness);
+      }
+      ShiftPWM.SetOne(32,maxBrightness);
+      ShiftPWM.SetOne(24,maxBrightness);
+      ShiftPWM.SetOne(16,maxBrightness);
+      ShiftPWM.SetOne(8,maxBrightness);
+      break;
+    default:
+      break;
+  }
+
+  resetGameSettings();
+  delay(5000);
+  digitalWrite(layerPins[3], LOW);
+}
+
+// Reset game to start from the beginning
+void resetGameSettings() {
+  snake[0][0] = 27;
+  snake[0][1] = 2;
+  snake[0][2] = 0;
+
+  for(int i = 1; i < 10; i++) {
+    snake[i][0] = -1;
+    snake[i][1] = -1;
+    snake[i][2] = -1;
+  }
+  
+  snakeSpeed = 800;
+  snakeLength = 1;
+  randomPoint[0] = -1;
+  randomPoint[1] = -1;
+  gameStarted = false;
+}
+
