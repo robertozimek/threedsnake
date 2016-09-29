@@ -426,4 +426,93 @@ int firstRun = true;
 
 void loop() {
 
+  // Cool startup animationg, turning on each layer 1 by 1 and speeding up
+  int delayTime = 300;
+  while(firstRun) {
+    for(int i = 0; i < 10; i++) {
+      for(int x = 0; x < 4; x++) {
+            digitalWrite(layerPins[x], HIGH);
+            ShiftPWM.SetAll(maxBrightness);
+            delay(delayTime);
+            ShiftPWM.SetAll(0);
+            digitalWrite(layerPins[x], LOW);
+            delayTime -= 5;
+      }
+    }
+    firstRun = false;
+  }
+  
+
+  // Start game once button is pressed
+  while(gameStarted) {
+    // Retrieve a random point for snake to eat
+    if(randomPoint[0] == -1 || randomPoint[1] == -1) {
+      getRandomPoint();
+    }
+
+    // Record previous level and direction of snake
+    int prevLevel = snake[0][1];
+    int prevDirection = snake[0][2];
+
+    // Change movement of snake
+    for(int i = 0; i < snakeLength; i++) {
+      // Check if current snake if going out of bounds
+      outOfBoundsCheck(snake[i][0],snake[i][1], snake[i][2]);
+
+      
+      // Change direction of the snake 
+      switch(snake[i][2]) {
+        case 0: // Forward
+          checkIfEats(snake[i][0] + 1, snake[i][1]);
+          snake[i][0] = snake[i][0] + 1;
+          break;
+        case 1: // Backward
+          checkIfEats(snake[i][0] - 1, snake[i][1]);
+          snake[i][0] = snake[i][0] - 1;
+          break;
+        case 2: // Up
+          checkIfEats(snake[i][0], snake[i][1] + 1);
+          snake[i][1] = snake[i][1] + 1;
+          break;
+        case 3: // Left
+          checkIfEats(snake[i][0] + 8, snake[i][1]);
+          snake[i][0] = snake[i][0] + 8;
+          break;
+        case 4: // Down
+          checkIfEats(snake[i][0], snake[i][1] - 1);
+          snake[i][1] = snake[i][1] - 1;
+          break;
+        case 5: // Right
+          checkIfEats(snake[i][0] - 8, snake[i][1]);
+          snake[i][0] = snake[i][0] - 8;
+          break;
+        default:
+          break;
+      }
+
+      // Set new direction of snake and record new direction
+      int temp = snake[i][2];
+      snake[i][2] = prevDirection;
+      prevDirection = temp;
+    }
+
+    // Loop through so that LEDs are on for certain amount of time according to snake speed
+    for(int j = 0; j < snakeSpeed; j++) {
+      // Loop through cube layers
+      for(int x = 0; x < 4; x++) {
+        digitalWrite(layerPins[x], HIGH);
+        // Loop through snake and light LEDs 
+        for(int i = 0; i < snakeLength; i++) {
+            if(randomPoint[1] == x) {
+              ShiftPWM.SetOne(randomPoint[0], maxBrightness); // Light random snake food
+            }
+            if(snake[i][1] == x) {
+              ShiftPWM.SetOne(snake[i][0], maxBrightness); // Light Snake
+            }
+        }
+        ShiftPWM.SetAll(0); // Turn off shift registers
+        digitalWrite(layerPins[x], LOW); // Turn off layer
+      }
+    }
+  }
 }
