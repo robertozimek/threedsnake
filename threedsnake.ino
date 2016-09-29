@@ -11,6 +11,8 @@
  *  
  */
 
+#define array_len(x)  (sizeof(x)/sizeof(x[0]))
+
 // Pin 8 for shift register latch
 // Data & Clock pin are define in the shiftpwn library using the SPI pins
 const int ShiftPWN_latchPin = 8;
@@ -350,4 +352,39 @@ void resetGameSettings() {
   randomPoint[1] = -1;
   gameStarted = false;
 }
+
+// Get random point for snake to eat
+void getRandomPoint() {
+  randomPoint[0] = random(0, 63);
+  randomPoint[1] = random(0,3);
+
+  // Make sure the random point is not overlapping the snake
+  for(int i = 0; i < array_len(snake); i++) {
+    if(snake[i][0] == randomPoint[0] && snake[i][1] == randomPoint[1]) {
+      randomPoint[0] = random(0, 63);
+      randomPoint[1] = random(0,3);
+      i = 0;
+    } else if((snake[i][0] == -1) || (snake[i][1] == -1)) {
+      break;
+    } 
+  }
+}
+
+// Check if snake goes out of bound
+void outOfBoundsCheck(int column, int level, int direct) {
+  if (((column + 1) % 8) == 0 && (column != 0) && (direct == 0 || direct == 1| direct == 3 || direct == 5)) {
+    gameOver(snakeLength);
+  } else if (((column) % 8) == 0 && (column != 0) && (direct == 0 || direct == 1| direct == 3 || direct == 5)) {
+    gameOver(snakeLength);
+  } else if ((column - 1) < 0 && (direct == 0 || direct == 1| direct == 3 || direct == 5)) {
+    gameOver(snakeLength);
+  } else if (((level + 1) % 4) == 0 && (direct == 2)) {
+    gameOver(snakeLength);
+  } else if (((level - 1) < 0) && (direct == 4)) {
+    gameOver(snakeLength);
+  } else if (column > 63 ) {
+    gameOver(snakeLength);
+  }
+}
+
 
