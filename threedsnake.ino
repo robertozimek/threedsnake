@@ -387,4 +387,36 @@ void outOfBoundsCheck(int column, int level, int direct) {
   }
 }
 
+void checkIfEats(int column, int level) {
+  if(randomPoint[0] == column && randomPoint[1] == level) {
+    // Shift snake body back
+    for(int i = snakeLength - 1; i >= 0; i--) {
+      snake[i+1][0] = snake[i][0];
+      snake[i+1][1] = snake[i][1];
+      snake[i+1][2] = snake[i][2]; 
+    }
+    
+    // Add a piece of snake to the front
+    snake[0][0] = column;
+    snake[0][1] = level;
+    snake[0][2] = snake[1][2];
+
+    // Add size of snake length and reset random point array
+    snakeLength += 1;
+    randomPoint[0] = -1;
+    randomPoint[1] = -1;
+
+    // Increase game speed
+    snakeSpeed -= 200;
+
+    // Check if snake is 100% full, if so display score and restart game
+    if(snakeLength == 10) {
+      gameOver(10);
+    }
+  }
+}
+
+
+
+
 
