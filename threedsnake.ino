@@ -15,7 +15,7 @@
 
 // Pin 8 for shift register latch
 // Data & Clock pin are define in the shiftpwn library using the SPI pins
-const int ShiftPWN_latchPin = 8;
+const int ShiftPWM_latchPin=8;
 
 // Inverts the output of shift register so LOW is HIGH and HIGH is LOW
 const bool ShiftPWM_invertOutputs = true;
@@ -28,7 +28,7 @@ const bool ShiftPWM_balanceLoad = false;
 // https://github.com/elcojacobs/ShiftPWM/
 #include <ShiftPWM.h> 
 
-// Set up options for the ShiftPWN library
+// Set up options for the ShiftPWM library
 unsigned char maxBrightness = 255;
 unsigned char pwmFrequency = 75;
 unsigned int numRegisters = 8;
@@ -36,6 +36,9 @@ unsigned int numOutputs = numRegisters*8;
 unsigned int numRGBLeds = numRegisters*8/3;
 unsigned int fadingMode = 0; 
 unsigned long startTime = 0;
+
+
+boolean gameStarted = false; // Boolean used to start game when button is pressed
 
 // Controller Pins
 int upPin = 20;
@@ -47,8 +50,6 @@ int backPin = 18;
 
 // LED cube layer pins
 int layerPins[4] = {4, 5, 6, 7};
-
-boolean gameStarted = false; // Boolean used to start game when button is pressed
 
 // Snake body array
 // -----------------------------
@@ -84,11 +85,12 @@ int randomPoint[2] = {-1, -1}; // column, level
 int snakeSpeed = 800; // inital speed
 
 void setup() {
+  pinMode(7,OUTPUT);
   // Loops over layer pins and sets to output
   for (int i = 0; i < 4; i++) {
     pinMode(layerPins[i], OUTPUT);
   }
-
+  
   // Seed random number using noise from analog pin 0
   randomSeed(analogRead(0));
 
@@ -115,11 +117,6 @@ void setup() {
   ShiftPWM.Start(pwmFrequency,maxBrightness);
 }
 
-void loop() {
-  
-}
-
-
 /*
  * Button Press Functions
  */
@@ -130,34 +127,37 @@ void startGameIfNotStarted() {
 }
 
 void upPressed() {
-  startGameIfNotStarted());
+  startGameIfNotStarted();
   snake[0][2] = 2;
 }
 
 void rightPressed() {
-  startGameIfNotStarted());
+  startGameIfNotStarted();
   snake[0][2] = 5;
 }
 
 void downPressed() {
-  startGameIfNotStarted());
+  startGameIfNotStarted();
   snake[0][2] = 4;
 }
 
 void leftPressed() {
-  startGameIfNotStarted());
+  if(!gameStarted) {
+    gameStarted = true;
+  }
   snake[0][2] = 3;
 }
 
 void forwardPressed() {
-  startGameIfNotStarted());
+  startGameIfNotStarted();
   snake[0][2] = 0;
 }
 
 void backPressed() {
-  startGameIfNotStarted());
+  startGameIfNotStarted();
   snake[0][2] = 1;
 }
+
 
 // Print score of game
 void gameOver(int score = 0) {
@@ -334,6 +334,7 @@ void gameOver(int score = 0) {
   digitalWrite(layerPins[3], LOW);
 }
 
+
 // Reset game to start from the beginning
 void resetGameSettings() {
   snake[0][0] = 27;
@@ -353,6 +354,7 @@ void resetGameSettings() {
   gameStarted = false;
 }
 
+
 // Get random point for snake to eat
 void getRandomPoint() {
   randomPoint[0] = random(0, 63);
@@ -369,6 +371,7 @@ void getRandomPoint() {
     } 
   }
 }
+
 
 // Check if snake goes out of bound
 void outOfBoundsCheck(int column, int level, int direct) {
@@ -417,6 +420,10 @@ void checkIfEats(int column, int level) {
 }
 
 
+// boolean to check if the arduino was just turned
+int firstRun = true;
 
 
+void loop() {
 
+}
